@@ -1,0 +1,27 @@
+local Players = game:GetService('Players')
+local Player = Players.LocalPlayer
+local CFrame_ = CFrame.new()
+Player.Character.Humanoid.HealthChanged:Connect(function()
+	if Player.Character.Humanoid.Health == 0 then
+		wait(Players.RespawnTime-1)
+		CFrame_ = workspace.CurrentCamera.CFrame
+		spawn(function()
+			wait(1.045)
+			workspace.CurrentCamera.CFrame = CFrame_
+		end)
+	end
+end)
+
+Player.CharacterAdded:Connect(function()
+	Player.Character:WaitForChild('Humanoid')
+	Player.Character.Humanoid.HealthChanged:Connect(function()
+		if Player.Character.Humanoid.Health == 0 then
+			wait(Players.RespawnTime-1)
+			CFrame_ = workspace.CurrentCamera.CFrame
+			spawn(function()
+				wait(1.045)
+				workspace.CurrentCamera.CFrame = CFrame_
+			end)
+		end
+	end)
+end)
